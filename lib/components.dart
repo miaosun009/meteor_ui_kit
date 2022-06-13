@@ -1,1 +1,1 @@
-export './src/components/color/color_scheme.dart';
+export 'src/foundation/color_scheme.dart';

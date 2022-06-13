@@ -14,15 +14,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// TODO 更换主题重复渲染问题
     return UIKitListenableBuilder(
       builder: (context, themeSetting) {
-        return MaterialApp(
+        return UIKitApp(
           title: 'Flutter Demo',
-          theme: ThemeData(fontFamily: themeSetting.fontFamily),
-          darkTheme: ThemeData(fontFamily: themeSetting.fontFamily, brightness: Brightness.dark),
-          // theme: UIKit().themeBuilder.light(fontFamily: themeSetting.fontFamily),
-          // darkTheme: UIKit().themeBuilder.dark(fontFamily: themeSetting.fontFamily),
+          theme: UIKit().themeBuilder.light(fontFamily: themeSetting.fontFamily),
+          darkTheme: UIKit().themeBuilder.dark(fontFamily: themeSetting.fontFamily),
           themeMode: themeSetting.mode,
           routes: routes,
           initialRoute: '/',
@@ -34,6 +31,6 @@ class MyApp extends StatelessWidget {
   get routes => {
         '/': (_) => const IndexPage(),
         '/colorScheme': (_) => const ColorSchemePage(),
-        '/themeSetting': (_) => ThemeSettingPage(),
+        '/themeSetting': (_) => const ThemeSettingPage(),
       };
 }

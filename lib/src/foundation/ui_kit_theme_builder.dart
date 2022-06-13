@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meteor_ui_kit/src/components/color/color_scheme.dart';
+import 'package:meteor_ui_kit/src/foundation/color_scheme.dart';
 
 import 'component_theme_together.dart';
 
@@ -31,7 +31,7 @@ class UIKitThemeBuilder {
       colorScheme: ColorScheme(
         primary: colors.primary,
         secondary: colors.secondary,
-        surface: colors.secondary,
+        surface: colors.primary,
         background: colors.background,
         error: Colors.red,
         onPrimary: primaryIsDark ? Colors.white : Colors.black,
@@ -44,9 +44,6 @@ class UIKitThemeBuilder {
       scaffoldBackgroundColor: colors.background,
       cardTheme: themeData.cardTheme.copyWith(
         color: colors.card,
-        shadowColor: Colors.red,
-        surfaceTintColor: Colors.red,
-        elevation: 1,
       ),
     );
     return themeData;

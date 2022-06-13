@@ -1,33 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:meteor_ui_kit/src/foundation/ui_kit_theme_builder.dart';
 import 'package:flutter/material.dart';
-
-@immutable
-class UIKitThemeSetting with Diagnosticable {
-  final ThemeMode mode;
-  final String fontFamily;
-
-  const UIKitThemeSetting({this.mode = ThemeMode.system, this.fontFamily = ''});
-
-  @override
-  bool operator ==(Object other) {
-    if (other.runtimeType != runtimeType) return false;
-    return other is UIKitThemeSetting && other.mode == mode && other.fontFamily == fontFamily;
-  }
-
-  UIKitThemeSetting copyWith({
-    ThemeMode? mode,
-    String? fontFamily,
-  }) {
-    return UIKitThemeSetting(
-      mode: mode ?? this.mode,
-      fontFamily: fontFamily ?? this.fontFamily,
-    );
-  }
-
-  @override
-  int get hashCode => hashValues(mode, fontFamily);
-}
+import 'package:meteor_ui_kit/src/foundation/ui_kit_theme_setting.dart';
 
 class UIKit extends ChangeNotifier {
   static UIKit? _instance;
@@ -71,7 +45,6 @@ class _UIKitListenableBuilderState extends State<UIKitListenableBuilder> {
       if (UIKit().themeSetting != setting) {
         setting = UIKit().themeSetting;
         if (mounted) {
-          print("333333");
           setState(() {});
         }
       }
@@ -80,4 +53,14 @@ class _UIKitListenableBuilderState extends State<UIKitListenableBuilder> {
 
   @override
   Widget build(BuildContext context) => widget.builder(context, UIKit().themeSetting);
+}
+
+abstract class UIKitTheme {
+  static T? extension<T>(BuildContext context) {
+    try {
+      return Theme.of(context).extension<T>();
+    } catch (_) {
+      return null;
+    }
+  }
 }

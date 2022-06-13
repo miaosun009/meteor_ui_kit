@@ -12,22 +12,22 @@ class _IndexPageState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Meteor UIKit"),
+        title: const Text("Meteor UIKit"),
       ),
       body: ListView(
         children: [
-          // MaterialButton(
-          //   onPressed: () {
-          //     Navigator.of(context).pushNamed('/colorScheme');
-          //   },
-          //   child: Text("Colors"),
-          // ),
           MaterialButton(
             onPressed: () {
               Navigator.of(context).pushNamed('/themeSetting');
             },
             child: Text("Theme Setting"),
-          )
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/colorScheme');
+            },
+            child: const Text("Color Scheme"),
+          ),
         ],
       ),
     );

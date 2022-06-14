@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meteor_ui_kit/src/core/screen_adapter/ui_kit_design_size.dart';
 import '../../../foundation.dart';
 
 class UIKitScreenInfo {
@@ -95,17 +94,17 @@ class UIKitScreenInfo {
   @override
   String toString() {
     if (designSize.width >= 720) {
-      print("╔═══════════════════════════════════╗");
-      print("║                ╭-╮                ║");
-      print("║                ┆ ┆                ║");
-      print("║                ┆ ┆                ║");
-      print("║                ╰-╯                ║");
-      print("║                 ○                 ║");
-      print("║                                   ║");
-      print("║      请以pt/dp为单位初始化ui尺寸     ║");
-      print("║                                   ║");
-      print("║                                   ║");
-      print("╚═══════════════════════════════════╝");
+      UIKit().print("╔═══════════════════════════════════╗");
+      UIKit().print("║                ╭-╮                ║");
+      UIKit().print("║                ┆ ┆                ║");
+      UIKit().print("║                ┆ ┆                ║");
+      UIKit().print("║                ╰-╯                ║");
+      UIKit().print("║                 ○                 ║");
+      UIKit().print("║                                   ║");
+      UIKit().print("║      请以pt/dp为单位初始化ui尺寸      ║");
+      UIKit().print("║                                   ║");
+      UIKit().print("║                                   ║");
+      UIKit().print("╚═══════════════════════════════════╝");
     }
     return 'UIKitScreenInfo{actualPixelRatio: $actualPixelRatio, designSize: $designSize, deltaHeight: $deltaLength, _deltaPadding: $_deltaPadding, _bodyMaxLength: $_bodyMaxLength}';
   }

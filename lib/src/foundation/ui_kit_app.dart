@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show ThemeMode, ScaffoldMessenger, ScaffoldMessengerState, ThemeData, MaterialRectArcTween, Theme, Scrollbar, DefaultMaterialLocalizations, FloatingActionButton, Icons, AnimatedTheme, Colors, MaterialPageRoute, Tooltip;
 import 'package:flutter/services.dart';
+import 'package:meteor_ui_kit/src/foundation/screen_adapter/screen_ratio_adapter.dart';
 
 /// [UIKitApp] uses this [TextStyle] as its [DefaultTextStyle] to encourage
 /// developers to be intentional about their [DefaultTextStyle].
@@ -848,30 +849,34 @@ class _UIKitAppState extends State<UIKitApp> {
       theme = widget.highContrastTheme;
     }
     theme ??= widget.theme ?? ThemeData.light();
-
     return ScaffoldMessenger(
       key: widget.scaffoldMessengerKey,
       child: AnimatedTheme(
         data: theme,
         duration: widget.themeAnimationDuration ?? const Duration(seconds: 0),
-        child: widget.builder != null
-            ? Builder(
-                builder: (BuildContext context) {
-                  // Why are we surrounding a builder with a builder?
-                  //
-                  // The widget.builder may contain code that invokes
-                  // Theme.of(), which should return the theme we selected
-                  // above in AnimatedTheme. However, if we invoke
-                  // widget.builder() directly as the child of AnimatedTheme
-                  // then there is no Context separating them, and the
-                  // widget.builder() will not find the theme. Therefore, we
-                  // surround widget.builder with yet another builder so that
-                  // a context separates them and Theme.of() correctly
-                  // resolves to the theme we passed to AnimatedTheme.
-                  return widget.builder!(context, child);
-                },
-              )
-            : child ?? const SizedBox.shrink(),
+        child: UIKitScreenTransitionBuilder(
+          builder: (context, child) {
+            return widget.builder != null
+                ? Builder(
+                    builder: (BuildContext context) {
+                      // Why are we surrounding a builder with a builder?
+                      //
+                      // The widget.builder may contain code that invokes
+                      // Theme.of(), which should return the theme we selected
+                      // above in AnimatedTheme. However, if we invoke
+                      // widget.builder() directly as the child of AnimatedTheme
+                      // then there is no Context separating them, and the
+                      // widget.builder() will not find the theme. Therefore, we
+                      // surround widget.builder with yet another builder so that
+                      // a context separates them and Theme.of() correctly
+                      // resolves to the theme we passed to AnimatedTheme.
+
+                      return widget.builder!(context, child);
+                    },
+                  )
+                : child ?? const SizedBox.shrink();
+          },
+        ).call(context, child),
       ),
     );
   }

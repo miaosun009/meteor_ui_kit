@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/foundation.dart';
 
 void main() {
-  UIKit().init();
+  UIKit().init(
+    designSize: const UIKitDesignSize(300, 677),
+  );
   runApp(const MyApp());
 }
 

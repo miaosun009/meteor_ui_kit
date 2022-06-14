@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:meteor_ui_kit/src/foundation/screen_adapter/src/screen_adapter_binding.dart';
 import 'package:meteor_ui_kit/src/foundation/ui_kit_theme_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/src/foundation/ui_kit_theme_setting.dart';
@@ -14,6 +15,17 @@ class UIKit extends ChangeNotifier {
     notifyListeners();
   }
 
+  UIKitDesignSize? _designSize;
+
+  UIKitDesignSize? get designSize => _designSize;
+
+  bool? _initialized;
+
+  DebugPrintCallback? debugPrintCallback;
+
+  bool get enableLog => _enableLog ?? true;
+  bool? _enableLog;
+
   UIKit._() {
     _themeSetting = const UIKitThemeSetting();
   }
@@ -22,8 +34,24 @@ class UIKit extends ChangeNotifier {
   final UIKitThemeBuilder themeBuilder = const UIKitThemeBuilder();
 
   /// UIKit 初始化
-  init() {
-    // ThemeData(extensions: )
+  init({UIKitDesignSize? designSize, bool enableLog = true}) {
+    if (_initialized != true) {
+      _enableLog = enableLog;
+      _designSize = designSize;
+      if (_designSize != null) {
+        UIKitWidgetsFlutterBinding.ensureInitialized();
+      }
+      _initialized = true;
+    }
+  }
+
+  void print(String? message, {int? wrapWidth}) {
+    if (_enableLog == false) return;
+    if (debugPrintCallback == null) {
+      debugPrint(message, wrapWidth: wrapWidth);
+    } else {
+      debugPrintCallback?.call(message, wrapWidth: wrapWidth);
+    }
   }
 }
 
@@ -62,5 +90,25 @@ abstract class UIKitTheme {
     } catch (_) {
       return null;
     }
+  }
+}
+
+/// 设计稿尺寸
+class UIKitDesignSize {
+  final double width;
+  final double length;
+
+  const UIKitDesignSize(this.width, this.length);
+
+  double get aspectRatio {
+    if (length != 0.0) return width / length;
+    if (width > 0.0) return double.infinity;
+    if (width < 0.0) return double.negativeInfinity;
+    return 0.0;
+  }
+
+  @override
+  String toString() {
+    return 'UIKitDesignSize{width: $width, length: $length}';
   }
 }

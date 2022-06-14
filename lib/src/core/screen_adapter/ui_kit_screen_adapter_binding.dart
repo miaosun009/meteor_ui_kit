@@ -8,9 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:meteor_ui_kit/foundation.dart';
 import 'dart:collection';
 import 'dart:ui' as ui show window, PointerDataPacket;
-import 'info.dart';
-import 'print.dart';
-import 'transition_builder_widget.dart';
+import 'ui_kit_screen_info.dart';
 
 ///还原为设备原始实际值,使用系统像素密度
 double restore2DeviceValue(double dpValue) {
@@ -25,42 +23,9 @@ Size restore2DeviceSize(Size dpSize) {
   return dpSize * UIKitScreenInfo.instance.restoreRatio;
 }
 
-// ignore: non_constant_identifier_names
-TransitionBuilder UIKitScreenTransitionBuilder({TransitionBuilder? builder}) {
-  if (WidgetsBinding.instance is UIKitWidgetsFlutterBinding == false) return builder ?? (context, child) => child ?? const SizedBox.shrink();
-  final designSize = UIKit().designSize!;
-  return (context, child) {
-    var old = MediaQuery.of(context);
-    var deviceShortWidth = ui.window.physicalSize.width <= ui.window.physicalSize.height ? ui.window.physicalSize.width : ui.window.physicalSize.height;
-    if (deviceShortWidth == 0) deviceShortWidth = old.size.width < old.size.height ? old.size.width * old.devicePixelRatio : old.size.height * old.devicePixelRatio;
-    double actualPixelRatio = deviceShortWidth / designSize.width;
-    UIKitScreenInfo.init(actualPixelRatio: actualPixelRatio, designSize: designSize).onScreenMetricsChange(old);
-    UIKit().print("Info=${UIKitScreenInfo.instance}");
-    return TransitionBuilderWidget(
-      builder: builder ?? (__, _) => _!,
-      didChangeMetricsCallBack: () {
-        // Info.instance.onScreenMetricsChange(old);
-        // if (_enableLog) print("$_TAG Info=${Info.instance}");
-      },
-      child: MediaQuery(
-        data: old.copyWith(
-          textScaleFactor: 1,
-          size: (old.size / actualPixelRatio) * old.devicePixelRatio,
-          devicePixelRatio: actualPixelRatio,
-          padding: restore2DeviceEdgeInsets(old.padding),
-          viewPadding: restore2DeviceEdgeInsets(old.viewPadding),
-          viewInsets: restore2DeviceEdgeInsets(old.viewInsets),
-          systemGestureInsets: restore2DeviceEdgeInsets(old.systemGestureInsets),
-        ),
-        child: child!,
-      ),
-    );
-  };
-}
-
-class UIKitWidgetsFlutterBinding extends WidgetsFlutterBinding {
+class UIKitScreenAdapterBinding extends WidgetsFlutterBinding {
   static ensureInitialized() {
-    UIKitWidgetsFlutterBinding();
+    UIKitScreenAdapterBinding();
   }
 
   @override
@@ -190,7 +155,6 @@ class UIKitWidgetsFlutterBinding extends WidgetsFlutterBinding {
 }
 
 ///now  flutter --version 2.3.0-0.1.pre
-const Duration _defaultSamplingOffset = Duration(milliseconds: -38);
 const Duration _samplingInterval = Duration(microseconds: 16667);
 
 typedef _HandleSampleTimeChangedCallback = void Function();

@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../../../../foundation.dart';
-import '../src/print.dart';
+import 'package:meteor_ui_kit/src/core/screen_adapter/ui_kit_design_size.dart';
+import '../../../foundation.dart';
 
 class UIKitScreenInfo {
   static bool initialed = false;
@@ -67,7 +67,7 @@ class UIKitScreenInfo {
     deltaLength = deltaTg * designSize.width;
     bool isVertical = window.physicalSize.width <= window.physicalSize.height;
     double vertical = restore2DeviceEdgeInsets(queryData.padding).vertical;
-    UIKit().print("原MediaQueryData=$queryData \n vertical=$vertical");
+    UIKit().print("原MediaQueryData=$queryData\nvertical=$vertical");
     if (isVertical) {
       _bodyMaxLength = designSize.length - vertical + deltaLength;
     } else {

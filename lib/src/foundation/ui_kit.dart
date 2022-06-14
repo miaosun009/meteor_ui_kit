@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:meteor_ui_kit/src/foundation/screen_adapter/src/screen_adapter_binding.dart';
 import 'package:meteor_ui_kit/src/foundation/ui_kit_theme_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/src/foundation/ui_kit_theme_setting.dart';
+import '../core/screen_adapter/ui_kit_design_size.dart';
+import '../core/screen_adapter/ui_kit_screen_adapter_binding.dart';
 
 class UIKit extends ChangeNotifier {
   static UIKit? _instance;
@@ -39,7 +40,7 @@ class UIKit extends ChangeNotifier {
       _enableLog = enableLog;
       _designSize = designSize;
       if (_designSize != null) {
-        UIKitWidgetsFlutterBinding.ensureInitialized();
+        UIKitScreenAdapterBinding.ensureInitialized();
       }
       _initialized = true;
     }
@@ -90,25 +91,5 @@ abstract class UIKitTheme {
     } catch (_) {
       return null;
     }
-  }
-}
-
-/// 设计稿尺寸
-class UIKitDesignSize {
-  final double width;
-  final double length;
-
-  const UIKitDesignSize(this.width, this.length);
-
-  double get aspectRatio {
-    if (length != 0.0) return width / length;
-    if (width > 0.0) return double.infinity;
-    if (width < 0.0) return double.negativeInfinity;
-    return 0.0;
-  }
-
-  @override
-  String toString() {
-    return 'UIKitDesignSize{width: $width, length: $length}';
   }
 }

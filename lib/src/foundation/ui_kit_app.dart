@@ -8,7 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show ThemeMode, ScaffoldMessenger, ScaffoldMessengerState, ThemeData, MaterialRectArcTween, Theme, Scrollbar, DefaultMaterialLocalizations, FloatingActionButton, Icons, AnimatedTheme, Colors, MaterialPageRoute, Tooltip;
 import 'package:flutter/services.dart';
-import 'package:meteor_ui_kit/src/foundation/screen_adapter/screen_ratio_adapter.dart';
+
+import '../core/screen_adapter/transition_builder_widget.dart';
 
 /// [UIKitApp] uses this [TextStyle] as its [DefaultTextStyle] to encourage
 /// developers to be intentional about their [DefaultTextStyle].

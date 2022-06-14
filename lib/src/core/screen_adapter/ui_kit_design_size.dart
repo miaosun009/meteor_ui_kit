@@ -1,8 +1,9 @@
-class BlueprintsRectangle {
+/// 设计稿尺寸
+class UIKitDesignSize {
   final double width;
   final double length;
 
-  const BlueprintsRectangle(this.width, this.length);
+  const UIKitDesignSize(this.width, this.length);
 
   double get aspectRatio {
     if (length != 0.0) return width / length;
@@ -13,6 +14,6 @@ class BlueprintsRectangle {
 
   @override
   String toString() {
-    return 'BlueprintsRectangle{width: $width, length: $length}';
+    return 'UIKitDesignSize{width: $width, length: $length}';
   }
 }

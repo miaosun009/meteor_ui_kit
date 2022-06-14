@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/src/foundation/color_scheme.dart';
 
-import 'component_theme_together.dart';
+import '../core/component_theme_together.dart';
 
 class UIKitThemeBuilder {
   const UIKitThemeBuilder();

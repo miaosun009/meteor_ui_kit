@@ -22,8 +22,8 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
           padding: const EdgeInsets.all(24),
           children: [
             const Text("Theme mode"),
-            const SizedBox(height: 12),
-            Row(
+            const UISizedBox(height: 12),
+            UIRow(
               children: [
                 MaterialButton(
                   color: UIKit().themeSetting.mode == ThemeMode.dark ? colors?.primary : null,
@@ -48,10 +48,10 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
                 )
               ],
             ),
-            const SizedBox(height: 42),
+            const UISizedBox(height: 42),
             const Text("Font family"),
-            const SizedBox(height: 12),
-            Row(
+            const UISizedBox(height: 12),
+            UIRow(
               children: [
                 MaterialButton(
                   color: UIKit().themeSetting.fontFamily.isEmpty ? colors?.primary : null,

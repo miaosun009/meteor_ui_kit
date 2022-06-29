@@ -23,6 +23,7 @@ class StackHitTestWithoutSizeLimit extends Stack {
           fit: fit,
           clipBehavior: clipBehavior,
         );
+
   bool _debugCheckHasDirectionality(BuildContext context) {
     if (alignment is AlignmentDirectional && textDirection == null) {
       assert(

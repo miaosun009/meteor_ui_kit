@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 
 import 'hit_test.dart';
 
-mixin FlexHitTestWithoutSizeLimitmixin on Flex {
+mixin FlexHitTestWithoutSizeLimitMixin on Flex {
   @override
   RenderFlex createRenderObject(BuildContext context) {
     return RenderFlexHitTestWithoutSizeLimit(
@@ -19,7 +19,7 @@ mixin FlexHitTestWithoutSizeLimitmixin on Flex {
   }
 }
 
-class FlexHitTestWithoutSizeLimit extends Flex with FlexHitTestWithoutSizeLimitmixin {
+class FlexHitTestWithoutSizeLimit extends Flex with FlexHitTestWithoutSizeLimitMixin {
   FlexHitTestWithoutSizeLimit({
     Key? key,
     required Axis direction,
@@ -43,7 +43,7 @@ class FlexHitTestWithoutSizeLimit extends Flex with FlexHitTestWithoutSizeLimitm
         );
 }
 
-class RowHitTestWithoutSizeLimit extends Row with FlexHitTestWithoutSizeLimitmixin {
+class RowHitTestWithoutSizeLimit extends Row with FlexHitTestWithoutSizeLimitMixin {
   RowHitTestWithoutSizeLimit({
     Key? key,
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
@@ -65,7 +65,7 @@ class RowHitTestWithoutSizeLimit extends Row with FlexHitTestWithoutSizeLimitmix
         );
 }
 
-class ColumnHitTestWithoutSizeLimit extends Column with FlexHitTestWithoutSizeLimitmixin {
+class ColumnHitTestWithoutSizeLimit extends Column with FlexHitTestWithoutSizeLimitMixin {
   ColumnHitTestWithoutSizeLimit({
     Key? key,
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,

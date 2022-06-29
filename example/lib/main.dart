@@ -6,7 +6,7 @@ import 'package:meteor_ui_kit/foundation.dart';
 
 void main() {
   UIKit().init(
-    designSize: const UIKitDesignSize(500, 677),
+    designSize: const UIKitDesignSize(360, 677),
   );
   runApp(const MyApp());
 }

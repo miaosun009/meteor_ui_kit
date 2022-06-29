@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/components.dart';
+import 'package:meteor_ui_kit/foundation.dart';
 
 class ColorSchemePage extends StatefulWidget {
   const ColorSchemePage({Key? key}) : super(key: key);
@@ -20,10 +21,12 @@ class _ColorSchemePageState extends State<ColorSchemePage> {
       appBar: AppBar(
         title: const Text("UIColorScheme"),
       ),
-      body: ListView.separated(
-          padding: const EdgeInsets.all(24),
-          itemBuilder: (context, index) {
-            return Container(
+      body: UIColumn(
+        children: colors.asMap().keys.map((index) {
+          return UIGestureDetector(
+            debugHitTestAreaColor: Colors.red.shade100,
+            extraHitTestArea: const EdgeInsets.symmetric(horizontal: 24),
+            child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
               decoration: BoxDecoration(
                 color: colors[index],
@@ -34,10 +37,13 @@ class _ColorSchemePageState extends State<ColorSchemePage> {
                 style: TextStyle(color: ThemeData.estimateBrightnessForColor(colors[index]) == Brightness.dark ? Colors.white : Colors.black),
                 child: Text(titles[index]),
               ),
-            );
-          },
-          separatorBuilder: (context, index) => const SizedBox(height: 24),
-          itemCount: colorsScheme.length),
+            ),
+            onTap: () {
+              UIKit().print(titles[index]);
+            },
+          );
+        }).toList(),
+      ),
     );
   }
 

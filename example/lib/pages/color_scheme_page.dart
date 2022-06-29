@@ -21,13 +21,14 @@ class _ColorSchemePageState extends State<ColorSchemePage> {
       appBar: AppBar(
         title: const Text("UIColorScheme"),
       ),
-      body: UIColumn(
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         children: colors.asMap().keys.map((index) {
           return UIGestureDetector(
-            debugHitTestAreaColor: Colors.red.shade100,
-            extraHitTestArea: const EdgeInsets.symmetric(horizontal: 24),
+            extraHitTestArea: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               decoration: BoxDecoration(
                 color: colors[index],
                 borderRadius: BorderRadius.circular(24),

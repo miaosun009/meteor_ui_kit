@@ -26,9 +26,7 @@ class _ColorSchemePageState extends State<ColorSchemePage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         children: colors.asMap().keys.map((index) {
-          return UIGestureDetector(
-            extraHitTestArea:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          return UIDebounceTap(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -47,8 +45,8 @@ class _ColorSchemePageState extends State<ColorSchemePage> {
                 child: Text(titles[index]),
               ),
             ),
-            onTap: () {
-              UIKit().print(titles[index]);
+            onTap: () async {
+              print("测试");
             },
           );
         }).toList(),

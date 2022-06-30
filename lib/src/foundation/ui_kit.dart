@@ -59,7 +59,8 @@ class UIKit extends ChangeNotifier {
 class UIKitListenableBuilder extends StatefulWidget {
   final Function(BuildContext, UIKitThemeSetting) builder;
 
-  const UIKitListenableBuilder({Key? key, required this.builder}) : super(key: key);
+  const UIKitListenableBuilder({Key? key, required this.builder})
+      : super(key: key);
 
   @override
   State<UIKitListenableBuilder> createState() => _UIKitListenableBuilderState();
@@ -81,7 +82,8 @@ class _UIKitListenableBuilderState extends State<UIKitListenableBuilder> {
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(context, UIKit().themeSetting);
+  Widget build(BuildContext context) =>
+      widget.builder(context, UIKit().themeSetting);
 }
 
 abstract class UIKitTheme {

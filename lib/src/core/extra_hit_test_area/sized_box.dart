@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'hit_test.dart';
 
 class SizedBoxHitTestWithoutSizeLimit extends SizedBox {
-  const SizedBoxHitTestWithoutSizeLimit({Key? key, double? width, double? height, Widget? child})
+  const SizedBoxHitTestWithoutSizeLimit(
+      {Key? key, double? width, double? height, Widget? child})
       : super(
           key: key,
           child: child,
@@ -24,7 +25,8 @@ class SizedBoxHitTestWithoutSizeLimit extends SizedBox {
   }
 }
 
-class RenderConstrainedBoxHitTestWithoutSizeLimit extends RenderConstrainedBox with RenderBoxHitTestWithoutSizeLimit {
+class RenderConstrainedBoxHitTestWithoutSizeLimit extends RenderConstrainedBox
+    with RenderBoxHitTestWithoutSizeLimit {
   RenderConstrainedBoxHitTestWithoutSizeLimit({
     RenderBox? child,
     required BoxConstraints additionalConstraints,

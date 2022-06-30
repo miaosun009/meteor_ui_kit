@@ -7,9 +7,12 @@ mixin RenderBoxHitTestWithoutSizeLimit on RenderBox {
       if (!hasSize) {
         if (debugNeedsLayout) {
           throw FlutterError.fromParts(<DiagnosticsNode>[
-            ErrorSummary('Cannot hit test a render box that has never been laid out.'),
-            describeForError('The hitTest() method was called on this RenderBox'),
-            ErrorDescription("Unfortunately, this object's geometry is not known at this time, "
+            ErrorSummary(
+                'Cannot hit test a render box that has never been laid out.'),
+            describeForError(
+                'The hitTest() method was called on this RenderBox'),
+            ErrorDescription(
+                "Unfortunately, this object's geometry is not known at this time, "
                 'probably because it has never been laid out. '
                 'This means it cannot be accurately hit-tested.'),
             ErrorHint('If you are trying '
@@ -21,7 +24,8 @@ mixin RenderBoxHitTestWithoutSizeLimit on RenderBox {
         throw FlutterError.fromParts(<DiagnosticsNode>[
           ErrorSummary('Cannot hit test a render box with no size.'),
           describeForError('The hitTest() method was called on this RenderBox'),
-          ErrorDescription('Although this node is not marked as needing layout, '
+          ErrorDescription(
+              'Although this node is not marked as needing layout, '
               'its size is not set.'),
           ErrorHint('A RenderBox object must have an '
               'explicit size before it can be hit-tested. Make sure '
@@ -32,7 +36,8 @@ mixin RenderBoxHitTestWithoutSizeLimit on RenderBox {
     }());
 
     if (contains(position)) {
-      if (hitTestChildren(result, position: position) || hitTestSelf(position)) {
+      if (hitTestChildren(result, position: position) ||
+          hitTestSelf(position)) {
         result.add(BoxHitTestEntry(this, position));
         return true;
       }
@@ -53,7 +58,8 @@ mixin RenderBoxChildrenHitTestWithoutSizeLimit {
   }) {
     final List<RenderBox> normal = <RenderBox>[];
     for (final RenderBox child in children) {
-      if ((child is RenderBoxHitTestWithoutSizeLimit) && childIsHit(result, child, position: position)) {
+      if ((child is RenderBoxHitTestWithoutSizeLimit) &&
+          childIsHit(result, child, position: position)) {
         return true;
       } else {
         normal.insert(0, child);
@@ -69,8 +75,10 @@ mixin RenderBoxChildrenHitTestWithoutSizeLimit {
     return false;
   }
 
-  bool childIsHit(BoxHitTestResult result, RenderBox child, {required Offset position}) {
-    final ContainerParentDataMixin<RenderBox> childParentData = child.parentData as ContainerParentDataMixin<RenderBox>;
+  bool childIsHit(BoxHitTestResult result, RenderBox child,
+      {required Offset position}) {
+    final ContainerParentDataMixin<RenderBox> childParentData =
+        child.parentData as ContainerParentDataMixin<RenderBox>;
     final Offset offset = (childParentData as BoxParentData).offset;
     final bool isHit = result.addWithPaintOffset(
       offset: offset,
@@ -90,7 +98,8 @@ mixin ExtraHitTestBase {
   static Color? debugGlobalHitTestAreaColor;
 }
 
-mixin RenderProxyBoxWithHitTestBehaviorHitTestWithoutSizeLimit on RenderProxyBoxWithHitTestBehavior {
+mixin RenderProxyBoxWithHitTestBehaviorHitTestWithoutSizeLimit
+    on RenderProxyBoxWithHitTestBehavior {
   EdgeInsets get extraHitTestArea;
 
   bool contains(Offset position) {
@@ -101,8 +110,11 @@ mixin RenderProxyBoxWithHitTestBehaviorHitTestWithoutSizeLimit on RenderProxyBox
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
     bool hitTarget = false;
     if (contains(position)) {
-      hitTarget = hitTestChildren(result, position: position) || hitTestSelf(position);
-      if (hitTarget || (behavior == HitTestBehavior.translucent && !result.path.contains(_BoxHitTestEntry(this, position)))) {
+      hitTarget =
+          hitTestChildren(result, position: position) || hitTestSelf(position);
+      if (hitTarget ||
+          (behavior == HitTestBehavior.translucent &&
+              !result.path.contains(_BoxHitTestEntry(this, position)))) {
         result.add(_BoxHitTestEntry(this, position));
       }
     }
@@ -112,8 +124,10 @@ mixin RenderProxyBoxWithHitTestBehaviorHitTestWithoutSizeLimit on RenderProxyBox
   Rect getHitTestRect(Offset offset) {
     Rect rect = offset & size;
     rect = Rect.fromPoints(
-      Offset(rect.left - extraHitTestArea.left, rect.top - extraHitTestArea.top),
-      Offset(rect.right + extraHitTestArea.right, rect.bottom + extraHitTestArea.bottom),
+      Offset(
+          rect.left - extraHitTestArea.left, rect.top - extraHitTestArea.top),
+      Offset(rect.right + extraHitTestArea.right,
+          rect.bottom + extraHitTestArea.bottom),
     );
     return rect;
   }
@@ -123,7 +137,8 @@ class _BoxHitTestEntry extends BoxHitTestEntry {
   /// Creates a box hit test entry.
   ///
   /// The [localPosition] argument must not be null.
-  _BoxHitTestEntry(RenderBox target, Offset localPosition) : super(target, localPosition);
+  _BoxHitTestEntry(RenderBox target, Offset localPosition)
+      : super(target, localPosition);
 
   @override
   int get hashCode => hashValues(target, localPosition);
@@ -133,6 +148,8 @@ class _BoxHitTestEntry extends BoxHitTestEntry {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is _BoxHitTestEntry && target == other.target && localPosition == other.localPosition;
+    return other is _BoxHitTestEntry &&
+        target == other.target &&
+        localPosition == other.localPosition;
   }
 }

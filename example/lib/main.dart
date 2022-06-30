@@ -20,8 +20,10 @@ class MyApp extends StatelessWidget {
       builder: (context, themeSetting) {
         return UIKitApp(
           title: 'Flutter Demo',
-          theme: UIKit().themeBuilder.light(fontFamily: themeSetting.fontFamily),
-          darkTheme: UIKit().themeBuilder.dark(fontFamily: themeSetting.fontFamily),
+          theme:
+              UIKit().themeBuilder.light(fontFamily: themeSetting.fontFamily),
+          darkTheme:
+              UIKit().themeBuilder.dark(fontFamily: themeSetting.fontFamily),
           themeMode: themeSetting.mode,
           routes: routes,
           initialRoute: '/',

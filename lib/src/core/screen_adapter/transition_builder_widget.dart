@@ -6,14 +6,23 @@ import 'ui_kit_screen_info.dart';
 
 // ignore: non_constant_identifier_names
 TransitionBuilder UIKitScreenTransitionBuilder({TransitionBuilder? builder}) {
-  if (WidgetsBinding.instance is UIKitScreenAdapterBinding == false) return builder ?? (context, child) => child ?? const SizedBox.shrink();
+  if (WidgetsBinding.instance is UIKitScreenAdapterBinding == false)
+    return builder ?? (context, child) => child ?? const SizedBox.shrink();
   final designSize = UIKit().designSize!;
   return (context, child) {
     var old = MediaQuery.of(context);
-    var deviceShortWidth = ui.window.physicalSize.width <= ui.window.physicalSize.height ? ui.window.physicalSize.width : ui.window.physicalSize.height;
-    if (deviceShortWidth == 0) deviceShortWidth = old.size.width < old.size.height ? old.size.width * old.devicePixelRatio : old.size.height * old.devicePixelRatio;
+    var deviceShortWidth =
+        ui.window.physicalSize.width <= ui.window.physicalSize.height
+            ? ui.window.physicalSize.width
+            : ui.window.physicalSize.height;
+    if (deviceShortWidth == 0)
+      deviceShortWidth = old.size.width < old.size.height
+          ? old.size.width * old.devicePixelRatio
+          : old.size.height * old.devicePixelRatio;
     double actualPixelRatio = deviceShortWidth / designSize.width;
-    UIKitScreenInfo.init(actualPixelRatio: actualPixelRatio, designSize: designSize).onScreenMetricsChange(old);
+    UIKitScreenInfo.init(
+            actualPixelRatio: actualPixelRatio, designSize: designSize)
+        .onScreenMetricsChange(old);
     UIKit().print("Info=${UIKitScreenInfo.instance}");
     return TransitionBuilderWidget(
       builder: builder ?? (__, child) => child!,
@@ -29,7 +38,8 @@ TransitionBuilder UIKitScreenTransitionBuilder({TransitionBuilder? builder}) {
           padding: restore2DeviceEdgeInsets(old.padding),
           viewPadding: restore2DeviceEdgeInsets(old.viewPadding),
           viewInsets: restore2DeviceEdgeInsets(old.viewInsets),
-          systemGestureInsets: restore2DeviceEdgeInsets(old.systemGestureInsets),
+          systemGestureInsets:
+              restore2DeviceEdgeInsets(old.systemGestureInsets),
         ),
         child: child!,
       ),
@@ -56,7 +66,8 @@ class TransitionBuilderWidget extends StatefulWidget {
   }
 }
 
-class TransitionBuilderWidgetState extends State<TransitionBuilderWidget> with WidgetsBindingObserver {
+class TransitionBuilderWidgetState extends State<TransitionBuilderWidget>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();

@@ -28,8 +28,10 @@ class UIKitScreenInfo {
 
   UIKitScreenInfo._({required this.actualPixelRatio, required this.designSize});
 
-  factory UIKitScreenInfo.init({required double actualPixelRatio, required UIKitDesignSize designSize}) {
-    _instance ??= UIKitScreenInfo._(actualPixelRatio: actualPixelRatio, designSize: designSize);
+  factory UIKitScreenInfo.init(
+      {required double actualPixelRatio, required UIKitDesignSize designSize}) {
+    _instance ??= UIKitScreenInfo._(
+        actualPixelRatio: actualPixelRatio, designSize: designSize);
     initialed = true;
     return _instance!;
   }
@@ -61,8 +63,10 @@ class UIKitScreenInfo {
   }
 
   void onScreenMetricsChange(MediaQueryData queryData) {
-    var deltaTg = 1 / window.physicalSize.aspectRatio - 1 / designSize.aspectRatio;
-    _deltaPadding = restore2DeviceEdgeInsets(queryData.padding) - queryData.padding;
+    var deltaTg =
+        1 / window.physicalSize.aspectRatio - 1 / designSize.aspectRatio;
+    _deltaPadding =
+        restore2DeviceEdgeInsets(queryData.padding) - queryData.padding;
     deltaLength = deltaTg * designSize.width;
     bool isVertical = window.physicalSize.width <= window.physicalSize.height;
     double vertical = restore2DeviceEdgeInsets(queryData.padding).vertical;
@@ -76,9 +80,12 @@ class UIKitScreenInfo {
   }
 
   void _printUIKitScreenInfo() {
-    UIKit().print("△L=$deltaLength 状态栏△L=${_deltaPadding.vertical} _bodyMaxLength=$_bodyMaxLength");
-    UIKit().print("设计稿标准尺寸 = $designSize h/w tgθ= ${1 / designSize.aspectRatio}");
-    UIKit().print("设备的屏幕尺寸 =${window.physicalSize}  h/w tgθ=${1 / window.physicalSize.aspectRatio}");
+    UIKit().print(
+        "△L=$deltaLength 状态栏△L=${_deltaPadding.vertical} _bodyMaxLength=$_bodyMaxLength");
+    UIKit()
+        .print("设计稿标准尺寸 = $designSize h/w tgθ= ${1 / designSize.aspectRatio}");
+    UIKit().print(
+        "设备的屏幕尺寸 =${window.physicalSize}  h/w tgθ=${1 / window.physicalSize.aspectRatio}");
 
     if (deltaLength > 0) {
       UIKit().print("尺码过小 △L=$deltaLength 设置需要留白的区域");

@@ -6,7 +6,22 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show ThemeMode, ScaffoldMessenger, ScaffoldMessengerState, ThemeData, MaterialRectArcTween, Theme, Scrollbar, DefaultMaterialLocalizations, FloatingActionButton, Icons, AnimatedTheme, Colors, MaterialPageRoute, Tooltip;
+import 'package:flutter/material.dart'
+    show
+        ThemeMode,
+        ScaffoldMessenger,
+        ScaffoldMessengerState,
+        ThemeData,
+        MaterialRectArcTween,
+        Theme,
+        Scrollbar,
+        DefaultMaterialLocalizations,
+        FloatingActionButton,
+        Icons,
+        AnimatedTheme,
+        Colors,
+        MaterialPageRoute,
+        Tooltip;
 import 'package:flutter/services.dart';
 
 import '../core/screen_adapter/transition_builder_widget.dart';
@@ -181,7 +196,8 @@ class UIKitApp extends StatefulWidget {
     this.onGenerateRoute,
     this.onGenerateInitialRoutes,
     this.onUnknownRoute,
-    List<NavigatorObserver> this.navigatorObservers = const <NavigatorObserver>[],
+    List<NavigatorObserver> this.navigatorObservers =
+        const <NavigatorObserver>[],
     this.builder,
     this.title = '',
     this.onGenerateTitle,
@@ -730,7 +746,8 @@ class MaterialScrollBehavior extends ScrollBehavior {
   /// [ThemeData.androidOverscrollIndicator] is used. If also null, the default
   /// overscroll indicator is the [GlowingOverscrollIndicator].
   const MaterialScrollBehavior({
-    @Deprecated('Use ThemeData.useMaterial3 or override ScrollBehavior.buildOverscrollIndicator. '
+    @Deprecated(
+        'Use ThemeData.useMaterial3 or override ScrollBehavior.buildOverscrollIndicator. '
         'This feature was deprecated after v2.13.0-0.0.pre.')
         AndroidOverscrollIndicator? androidOverscrollIndicator,
   })  : _androidOverscrollIndicator = androidOverscrollIndicator,
@@ -739,10 +756,12 @@ class MaterialScrollBehavior extends ScrollBehavior {
   final AndroidOverscrollIndicator? _androidOverscrollIndicator;
 
   @override
-  TargetPlatform getPlatform(BuildContext context) => Theme.of(context).platform;
+  TargetPlatform getPlatform(BuildContext context) =>
+      Theme.of(context).platform;
 
   @override
-  Widget buildScrollbar(BuildContext context, Widget child, ScrollableDetails details) {
+  Widget buildScrollbar(
+      BuildContext context, Widget child, ScrollableDetails details) {
     // When modifying this function, consider modifying the implementation in
     // the base class as well.
     switch (axisDirectionToAxis(details.direction)) {
@@ -766,14 +785,17 @@ class MaterialScrollBehavior extends ScrollBehavior {
   }
 
   @override
-  Widget buildOverscrollIndicator(BuildContext context, Widget child, ScrollableDetails details) {
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
     // When modifying this function, consider modifying the implementation in
     // the base class as well.
     late final AndroidOverscrollIndicator indicator;
     if (Theme.of(context).useMaterial3) {
       indicator = AndroidOverscrollIndicator.stretch;
     } else {
-      indicator = _androidOverscrollIndicator ?? Theme.of(context).androidOverscrollIndicator ?? androidOverscrollIndicator;
+      indicator = _androidOverscrollIndicator ??
+          Theme.of(context).androidOverscrollIndicator ??
+          androidOverscrollIndicator;
     }
     switch (getPlatform(context)) {
       case TargetPlatform.iOS:
@@ -820,13 +842,15 @@ class _UIKitAppState extends State<UIKitApp> {
   // _MaterialLocalizationsDelegate.
   Iterable<LocalizationsDelegate<dynamic>> get _localizationsDelegates {
     return <LocalizationsDelegate<dynamic>>[
-      if (widget.localizationsDelegates != null) ...widget.localizationsDelegates!,
+      if (widget.localizationsDelegates != null)
+        ...widget.localizationsDelegates!,
       DefaultMaterialLocalizations.delegate,
       DefaultCupertinoLocalizations.delegate,
     ];
   }
 
-  Widget _inspectorSelectButtonBuilder(BuildContext context, VoidCallback onPressed) {
+  Widget _inspectorSelectButtonBuilder(
+      BuildContext context, VoidCallback onPressed) {
     return FloatingActionButton(
       onPressed: onPressed,
       mini: true,
@@ -837,8 +861,10 @@ class _UIKitAppState extends State<UIKitApp> {
   Widget _materialBuilder(BuildContext context, Widget? child) {
     // Resolve which theme to use based on brightness and high contrast.
     final ThemeMode mode = widget.themeMode ?? ThemeMode.system;
-    final Brightness platformBrightness = MediaQuery.platformBrightnessOf(context);
-    final bool useDarkTheme = mode == ThemeMode.dark || (mode == ThemeMode.system && platformBrightness == ui.Brightness.dark);
+    final Brightness platformBrightness =
+        MediaQuery.platformBrightnessOf(context);
+    final bool useDarkTheme = mode == ThemeMode.dark ||
+        (mode == ThemeMode.system && platformBrightness == ui.Brightness.dark);
     final bool highContrast = MediaQuery.highContrastOf(context);
     ThemeData? theme;
 
@@ -890,7 +916,8 @@ class _UIKitAppState extends State<UIKitApp> {
     // Android's switcher UI.
     //
     // blue is the primary color of the default theme.
-    final Color materialColor = widget.color ?? widget.theme?.primaryColor ?? Colors.blue;
+    final Color materialColor =
+        widget.color ?? widget.theme?.primaryColor ?? Colors.blue;
     if (_usesRouter) {
       return WidgetsApp.router(
         key: GlobalObjectKey(this),
@@ -963,8 +990,12 @@ class _UIKitAppState extends State<UIKitApp> {
     result = Focus(
       canRequestFocus: false,
       onKey: (FocusNode node, RawKeyEvent event) {
-        if (event is! RawKeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape) return KeyEventResult.ignored;
-        return Tooltip.dismissAllToolTips() ? KeyEventResult.handled : KeyEventResult.ignored;
+        if (event is! RawKeyDownEvent ||
+            event.logicalKey != LogicalKeyboardKey.escape)
+          return KeyEventResult.ignored;
+        return Tooltip.dismissAllToolTips()
+            ? KeyEventResult.handled
+            : KeyEventResult.ignored;
       },
       child: result,
     );

@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 
 import 'hit_test.dart';
 
-class ListenerHitTestWithoutSizeLimit extends SingleChildRenderObjectWidget with ExtraHitTestBase {
+class ListenerHitTestWithoutSizeLimit extends SingleChildRenderObjectWidget
+    with ExtraHitTestBase {
   const ListenerHitTestWithoutSizeLimit({
     Key? key,
     @required Widget? child,
@@ -45,7 +46,8 @@ class ListenerHitTestWithoutSizeLimit extends SingleChildRenderObjectWidget with
   }
 
   @override
-  void updateRenderObject(BuildContext context, RenderPointerListenerHitTestWithoutSizeLimit renderObject) {
+  void updateRenderObject(BuildContext context,
+      RenderPointerListenerHitTestWithoutSizeLimit renderObject) {
     renderObject
       ..extraHitTestArea = extraHitTestArea
       ..debugHitTestAreaColor = debugHitTestAreaColor
@@ -58,7 +60,10 @@ class ListenerHitTestWithoutSizeLimit extends SingleChildRenderObjectWidget with
   }
 }
 
-class RenderPointerListenerHitTestWithoutSizeLimit extends RenderPointerListener with RenderBoxHitTestWithoutSizeLimit, RenderProxyBoxWithHitTestBehaviorHitTestWithoutSizeLimit {
+class RenderPointerListenerHitTestWithoutSizeLimit extends RenderPointerListener
+    with
+        RenderBoxHitTestWithoutSizeLimit,
+        RenderProxyBoxWithHitTestBehaviorHitTestWithoutSizeLimit {
   RenderPointerListenerHitTestWithoutSizeLimit({
     Color? debugHitTestAreaColor,
     EdgeInsets extraHitTestArea = EdgeInsets.zero,
@@ -114,7 +119,8 @@ class RenderPointerListenerHitTestWithoutSizeLimit extends RenderPointerListener
   @override
   void paint(PaintingContext context, Offset offset) {
     if (kDebugMode) {
-      final Color? color = debugHitTestAreaColor ?? ExtraHitTestBase.debugGlobalHitTestAreaColor;
+      final Color? color =
+          debugHitTestAreaColor ?? ExtraHitTestBase.debugGlobalHitTestAreaColor;
       if (color != null) {
         final Rect rect = getHitTestRect(offset);
         context.canvas.drawRect(rect, Paint()..color = color);

@@ -26,23 +26,32 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
             UIRow(
               children: [
                 MaterialButton(
-                  color: UIKit().themeSetting.mode == ThemeMode.dark ? colors?.primary : null,
+                  color: UIKit().themeSetting.mode == ThemeMode.dark
+                      ? colors?.primary
+                      : null,
                   onPressed: () {
-                    UIKit().themeSetting = UIKit().themeSetting.copyWith(mode: ThemeMode.dark);
+                    UIKit().themeSetting =
+                        UIKit().themeSetting.copyWith(mode: ThemeMode.dark);
                   },
                   child: const Text("Dark"),
                 ),
                 MaterialButton(
-                  color: UIKit().themeSetting.mode == ThemeMode.light ? colors?.primary : null,
+                  color: UIKit().themeSetting.mode == ThemeMode.light
+                      ? colors?.primary
+                      : null,
                   onPressed: () {
-                    UIKit().themeSetting = UIKit().themeSetting.copyWith(mode: ThemeMode.light);
+                    UIKit().themeSetting =
+                        UIKit().themeSetting.copyWith(mode: ThemeMode.light);
                   },
                   child: const Text("Light"),
                 ),
                 MaterialButton(
-                  color: UIKit().themeSetting.mode == ThemeMode.system ? colors?.primary : null,
+                  color: UIKit().themeSetting.mode == ThemeMode.system
+                      ? colors?.primary
+                      : null,
                   onPressed: () {
-                    UIKit().themeSetting = UIKit().themeSetting.copyWith(mode: ThemeMode.system);
+                    UIKit().themeSetting =
+                        UIKit().themeSetting.copyWith(mode: ThemeMode.system);
                   },
                   child: const Text("System"),
                 )
@@ -54,16 +63,24 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
             UIRow(
               children: [
                 MaterialButton(
-                  color: UIKit().themeSetting.fontFamily.isEmpty ? colors?.primary : null,
+                  color: UIKit().themeSetting.fontFamily.isEmpty
+                      ? colors?.primary
+                      : null,
                   onPressed: () {
-                    UIKit().themeSetting = UIKit().themeSetting.copyWith(fontFamily: '');
+                    UIKit().themeSetting =
+                        UIKit().themeSetting.copyWith(fontFamily: '');
                   },
                   child: const Text("Default"),
                 ),
                 MaterialButton(
-                  color: UIKit().themeSetting.fontFamily.contains('JetBrainsMono') ? colors?.primary : null,
+                  color:
+                      UIKit().themeSetting.fontFamily.contains('JetBrainsMono')
+                          ? colors?.primary
+                          : null,
                   onPressed: () {
-                    UIKit().themeSetting = UIKit().themeSetting.copyWith(fontFamily: 'JetBrainsMono');
+                    UIKit().themeSetting = UIKit()
+                        .themeSetting
+                        .copyWith(fontFamily: 'JetBrainsMono');
                   },
                   child: const Text("JetBrainsMono"),
                 ),

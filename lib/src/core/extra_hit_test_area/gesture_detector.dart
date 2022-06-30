@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'hit_test.dart';
 import 'raw_gesture_detector.dart';
 
-class GestureDetectorHitTestWithoutSizeLimit extends GestureDetector with ExtraHitTestBase {
+class GestureDetectorHitTestWithoutSizeLimit extends GestureDetector
+    with ExtraHitTestBase {
   GestureDetectorHitTestWithoutSizeLimit({
     Key? key,
     Widget? child,
@@ -119,7 +120,8 @@ class GestureDetectorHitTestWithoutSizeLimit extends GestureDetector with ExtraH
   final Color? debugHitTestAreaColor;
   @override
   Widget build(BuildContext context) {
-    final RawGestureDetector superWidget = super.build(context) as RawGestureDetector;
+    final RawGestureDetector superWidget =
+        super.build(context) as RawGestureDetector;
 
     return RawGestureDetectorHitTestWithoutSizeLimit(
       gestures: superWidget.gestures,

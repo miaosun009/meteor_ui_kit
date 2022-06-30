@@ -10,7 +10,10 @@ class UIKitThemeBuilder {
     Iterable<ThemeExtension<dynamic>> extensions = const [],
     String? fontFamily,
   }) {
-    final themeData = ThemeData(fontFamily: fontFamily, brightness: Brightness.dark, extensions: [...componentThemeTogetherDark, ...extensions]);
+    final themeData = ThemeData(
+        fontFamily: fontFamily,
+        brightness: Brightness.dark,
+        extensions: [...componentThemeTogetherDark, ...extensions]);
     return _builder(themeData: themeData);
   }
 
@@ -18,7 +21,10 @@ class UIKitThemeBuilder {
     Iterable<ThemeExtension<dynamic>> extensions = const [],
     String? fontFamily,
   }) {
-    final themeData = ThemeData(fontFamily: fontFamily, brightness: Brightness.light, extensions: [...componentThemeTogetherLight, ...extensions]);
+    final themeData = ThemeData(
+        fontFamily: fontFamily,
+        brightness: Brightness.light,
+        extensions: [...componentThemeTogetherLight, ...extensions]);
     return _builder(themeData: themeData);
   }
 
@@ -26,7 +32,8 @@ class UIKitThemeBuilder {
     required ThemeData themeData,
   }) {
     final colors = themeData.extension<UIColorScheme>()!;
-    final primaryIsDark = ThemeData.estimateBrightnessForColor(colors.primary) == Brightness.dark;
+    final primaryIsDark =
+        ThemeData.estimateBrightnessForColor(colors.primary) == Brightness.dark;
     themeData = themeData.copyWith(
       colorScheme: ColorScheme(
         primary: colors.primary,

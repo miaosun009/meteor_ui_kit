@@ -19,7 +19,8 @@ mixin FlexHitTestWithoutSizeLimitMixin on Flex {
   }
 }
 
-class FlexHitTestWithoutSizeLimit extends Flex with FlexHitTestWithoutSizeLimitMixin {
+class FlexHitTestWithoutSizeLimit extends Flex
+    with FlexHitTestWithoutSizeLimitMixin {
   FlexHitTestWithoutSizeLimit({
     Key? key,
     required Axis direction,
@@ -28,7 +29,8 @@ class FlexHitTestWithoutSizeLimit extends Flex with FlexHitTestWithoutSizeLimitM
     CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
     TextDirection? textDirection,
     VerticalDirection verticalDirection = VerticalDirection.down,
-    TextBaseline? textBaseline, // NO DEFAULT: we don't know what the text's baseline should be
+    TextBaseline?
+        textBaseline, // NO DEFAULT: we don't know what the text's baseline should be
     List<Widget> children = const <Widget>[],
   }) : super(
           direction: direction,
@@ -43,7 +45,8 @@ class FlexHitTestWithoutSizeLimit extends Flex with FlexHitTestWithoutSizeLimitM
         );
 }
 
-class RowHitTestWithoutSizeLimit extends Row with FlexHitTestWithoutSizeLimitMixin {
+class RowHitTestWithoutSizeLimit extends Row
+    with FlexHitTestWithoutSizeLimitMixin {
   RowHitTestWithoutSizeLimit({
     Key? key,
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
@@ -51,7 +54,8 @@ class RowHitTestWithoutSizeLimit extends Row with FlexHitTestWithoutSizeLimitMix
     CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
     TextDirection? textDirection,
     VerticalDirection verticalDirection = VerticalDirection.down,
-    TextBaseline? textBaseline, // NO DEFAULT: we don't know what the text's baseline should be
+    TextBaseline?
+        textBaseline, // NO DEFAULT: we don't know what the text's baseline should be
     List<Widget> children = const <Widget>[],
   }) : super(
           children: children,
@@ -65,7 +69,8 @@ class RowHitTestWithoutSizeLimit extends Row with FlexHitTestWithoutSizeLimitMix
         );
 }
 
-class ColumnHitTestWithoutSizeLimit extends Column with FlexHitTestWithoutSizeLimitMixin {
+class ColumnHitTestWithoutSizeLimit extends Column
+    with FlexHitTestWithoutSizeLimitMixin {
   ColumnHitTestWithoutSizeLimit({
     Key? key,
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
@@ -87,7 +92,10 @@ class ColumnHitTestWithoutSizeLimit extends Column with FlexHitTestWithoutSizeLi
         );
 }
 
-class RenderFlexHitTestWithoutSizeLimit extends RenderFlex with RenderBoxHitTestWithoutSizeLimit, RenderBoxChildrenHitTestWithoutSizeLimit {
+class RenderFlexHitTestWithoutSizeLimit extends RenderFlex
+    with
+        RenderBoxHitTestWithoutSizeLimit,
+        RenderBoxChildrenHitTestWithoutSizeLimit {
   RenderFlexHitTestWithoutSizeLimit({
     List<RenderBox>? children,
     Axis direction = Axis.horizontal,

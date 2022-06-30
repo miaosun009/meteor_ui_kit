@@ -7,7 +7,8 @@ import 'package:flutter/widgets.dart';
 import 'hit_test.dart';
 import 'listener.dart';
 
-class RawGestureDetectorHitTestWithoutSizeLimit extends StatefulWidget with ExtraHitTestBase {
+class RawGestureDetectorHitTestWithoutSizeLimit extends StatefulWidget
+    with ExtraHitTestBase {
   /// Creates a widget that detects gestures.
   ///
   /// Gesture detectors can contribute semantic information to the tree that is
@@ -123,12 +124,15 @@ class RawGestureDetectorHitTestWithoutSizeLimit extends StatefulWidget with Extr
   final SemanticsGestureDelegate? semantics;
 
   @override
-  RawGestureDetectorHitTestWithoutSizeLimitState createState() => RawGestureDetectorHitTestWithoutSizeLimitState();
+  RawGestureDetectorHitTestWithoutSizeLimitState createState() =>
+      RawGestureDetectorHitTestWithoutSizeLimitState();
 }
 
 /// State for a [RawGestureDetectorHitTestWithoutSizeLimit].
-class RawGestureDetectorHitTestWithoutSizeLimitState extends State<RawGestureDetectorHitTestWithoutSizeLimit> {
-  Map<Type, GestureRecognizer>? _recognizers = const <Type, GestureRecognizer>{};
+class RawGestureDetectorHitTestWithoutSizeLimitState
+    extends State<RawGestureDetectorHitTestWithoutSizeLimit> {
+  Map<Type, GestureRecognizer>? _recognizers =
+      const <Type, GestureRecognizer>{};
   SemanticsGestureDelegate? _semantics;
 
   @override
@@ -164,8 +168,10 @@ class RawGestureDetectorHitTestWithoutSizeLimitState extends State<RawGestureDet
     assert(() {
       if (!context.findRenderObject()!.owner!.debugDoingLayout) {
         throw FlutterError.fromParts(<DiagnosticsNode>[
-          ErrorSummary('Unexpected call to replaceGestureRecognizers() method of RawGestureDetectorState.'),
-          ErrorDescription('The replaceGestureRecognizers() method can only be called during the layout phase.'),
+          ErrorSummary(
+              'Unexpected call to replaceGestureRecognizers() method of RawGestureDetectorState.'),
+          ErrorDescription(
+              'The replaceGestureRecognizers() method can only be called during the layout phase.'),
           ErrorHint(
             'To set the gesture recognizers at other times, trigger a new build using setState() '
             'and provide the new gesture recognizers as constructor arguments to the corresponding '
@@ -177,7 +183,8 @@ class RawGestureDetectorHitTestWithoutSizeLimitState extends State<RawGestureDet
     }());
     _syncAll(gestures);
     if (!widget.excludeFromSemantics) {
-      final RenderSemanticsGestureHandler semanticsGestureHandler = context.findRenderObject()! as RenderSemanticsGestureHandler;
+      final RenderSemanticsGestureHandler semanticsGestureHandler =
+          context.findRenderObject()! as RenderSemanticsGestureHandler;
       _updateSemanticsForRenderObject(semanticsGestureHandler);
     }
   }
@@ -196,7 +203,8 @@ class RawGestureDetectorHitTestWithoutSizeLimitState extends State<RawGestureDet
   void replaceSemanticsActions(Set<SemanticsAction> actions) {
     if (widget.excludeFromSemantics) return;
 
-    final RenderSemanticsGestureHandler? semanticsGestureHandler = context.findRenderObject() as RenderSemanticsGestureHandler?;
+    final RenderSemanticsGestureHandler? semanticsGestureHandler =
+        context.findRenderObject() as RenderSemanticsGestureHandler?;
     assert(() {
       if (semanticsGestureHandler == null) {
         throw FlutterError(
@@ -207,7 +215,8 @@ class RawGestureDetectorHitTestWithoutSizeLimitState extends State<RawGestureDet
       return true;
     }());
 
-    semanticsGestureHandler!.validActions = actions; // will call _markNeedsSemanticsUpdate(), if required.
+    semanticsGestureHandler!.validActions =
+        actions; // will call _markNeedsSemanticsUpdate(), if required.
   }
 
   @override
@@ -228,8 +237,10 @@ class RawGestureDetectorHitTestWithoutSizeLimitState extends State<RawGestureDet
       // TODO(zmtzawqlp): T == type
       //assert(gestures[type]!._debugAssertTypeMatches(type));
       assert(!_recognizers!.containsKey(type));
-      _recognizers![type] = oldRecognizers[type] ?? gestures[type]!.constructor();
-      assert(_recognizers![type].runtimeType == type, 'GestureRecognizerFactory of type $type created a GestureRecognizer of type ${_recognizers![type].runtimeType}. The GestureRecognizerFactory must be specialized with the type of the class that it returns from its constructor method.');
+      _recognizers![type] =
+          oldRecognizers[type] ?? gestures[type]!.constructor();
+      assert(_recognizers![type].runtimeType == type,
+          'GestureRecognizerFactory of type $type created a GestureRecognizer of type ${_recognizers![type].runtimeType}. The GestureRecognizerFactory must be specialized with the type of the class that it returns from its constructor method.');
       gestures[type]!.initializer(_recognizers![type]!);
     }
     for (final Type type in oldRecognizers.keys) {
@@ -248,10 +259,13 @@ class RawGestureDetectorHitTestWithoutSizeLimitState extends State<RawGestureDet
     if (widget.extraHitTestArea != EdgeInsets.zero) {
       return HitTestBehavior.opaque;
     }
-    return widget.child == null ? HitTestBehavior.translucent : HitTestBehavior.deferToChild;
+    return widget.child == null
+        ? HitTestBehavior.translucent
+        : HitTestBehavior.deferToChild;
   }
 
-  void _updateSemanticsForRenderObject(RenderSemanticsGestureHandler renderObject) {
+  void _updateSemanticsForRenderObject(
+      RenderSemanticsGestureHandler renderObject) {
     assert(!widget.excludeFromSemantics);
     assert(_semantics != null);
     _semantics!.assignSemantics(renderObject);
@@ -283,15 +297,26 @@ class RawGestureDetectorHitTestWithoutSizeLimitState extends State<RawGestureDet
     if (_recognizers == null) {
       properties.add(DiagnosticsNode.message('DISPOSED'));
     } else {
-      final List<String> gestures = _recognizers!.values.map<String>((GestureRecognizer recognizer) => recognizer.debugDescription).toList();
-      properties.add(IterableProperty<String>('gestures', gestures, ifEmpty: '<none>'));
-      properties.add(IterableProperty<GestureRecognizer>('recognizers', _recognizers!.values, level: DiagnosticLevel.fine));
-      properties.add(DiagnosticsProperty<bool>('excludeFromSemantics', widget.excludeFromSemantics, defaultValue: false));
+      final List<String> gestures = _recognizers!.values
+          .map<String>(
+              (GestureRecognizer recognizer) => recognizer.debugDescription)
+          .toList();
+      properties.add(
+          IterableProperty<String>('gestures', gestures, ifEmpty: '<none>'));
+      properties.add(IterableProperty<GestureRecognizer>(
+          'recognizers', _recognizers!.values,
+          level: DiagnosticLevel.fine));
+      properties.add(DiagnosticsProperty<bool>(
+          'excludeFromSemantics', widget.excludeFromSemantics,
+          defaultValue: false));
       if (!widget.excludeFromSemantics) {
-        properties.add(DiagnosticsProperty<SemanticsGestureDelegate>('semantics', widget.semantics, defaultValue: null));
+        properties.add(DiagnosticsProperty<SemanticsGestureDelegate>(
+            'semantics', widget.semantics,
+            defaultValue: null));
       }
     }
-    properties.add(EnumProperty<HitTestBehavior>('behavior', widget.behavior, defaultValue: null));
+    properties.add(EnumProperty<HitTestBehavior>('behavior', widget.behavior,
+        defaultValue: null));
   }
 }
 
@@ -303,7 +328,8 @@ class _DefaultSemanticsGestureDelegate extends SemanticsGestureDelegate {
   @override
   void assignSemantics(RenderSemanticsGestureHandler renderObject) {
     assert(!detectorState.widget.excludeFromSemantics);
-    final Map<Type, GestureRecognizer> recognizers = detectorState._recognizers!;
+    final Map<Type, GestureRecognizer> recognizers =
+        detectorState._recognizers!;
     renderObject
       ..onTap = _getTapHandler(recognizers)
       ..onLongPress = _getLongPressHandler(recognizers)
@@ -312,7 +338,8 @@ class _DefaultSemanticsGestureDelegate extends SemanticsGestureDelegate {
   }
 
   GestureTapCallback? _getTapHandler(Map<Type, GestureRecognizer> recognizers) {
-    final TapGestureRecognizer? tap = recognizers[TapGestureRecognizer] as TapGestureRecognizer?;
+    final TapGestureRecognizer? tap =
+        recognizers[TapGestureRecognizer] as TapGestureRecognizer?;
     if (tap == null) return null;
 
     return () {
@@ -323,8 +350,10 @@ class _DefaultSemanticsGestureDelegate extends SemanticsGestureDelegate {
     };
   }
 
-  GestureLongPressCallback? _getLongPressHandler(Map<Type, GestureRecognizer> recognizers) {
-    final LongPressGestureRecognizer? longPress = recognizers[LongPressGestureRecognizer] as LongPressGestureRecognizer?;
+  GestureLongPressCallback? _getLongPressHandler(
+      Map<Type, GestureRecognizer> recognizers) {
+    final LongPressGestureRecognizer? longPress =
+        recognizers[LongPressGestureRecognizer] as LongPressGestureRecognizer?;
     if (longPress == null) return null;
 
     return () {
@@ -335,9 +364,13 @@ class _DefaultSemanticsGestureDelegate extends SemanticsGestureDelegate {
     };
   }
 
-  GestureDragUpdateCallback? _getHorizontalDragUpdateHandler(Map<Type, GestureRecognizer> recognizers) {
-    final HorizontalDragGestureRecognizer? horizontal = recognizers[HorizontalDragGestureRecognizer] as HorizontalDragGestureRecognizer?;
-    final PanGestureRecognizer? pan = recognizers[PanGestureRecognizer] as PanGestureRecognizer?;
+  GestureDragUpdateCallback? _getHorizontalDragUpdateHandler(
+      Map<Type, GestureRecognizer> recognizers) {
+    final HorizontalDragGestureRecognizer? horizontal =
+        recognizers[HorizontalDragGestureRecognizer]
+            as HorizontalDragGestureRecognizer?;
+    final PanGestureRecognizer? pan =
+        recognizers[PanGestureRecognizer] as PanGestureRecognizer?;
 
     final GestureDragUpdateCallback? horizontalHandler = horizontal == null
         ? null
@@ -364,9 +397,13 @@ class _DefaultSemanticsGestureDelegate extends SemanticsGestureDelegate {
     };
   }
 
-  GestureDragUpdateCallback? _getVerticalDragUpdateHandler(Map<Type, GestureRecognizer> recognizers) {
-    final VerticalDragGestureRecognizer? vertical = recognizers[VerticalDragGestureRecognizer] as VerticalDragGestureRecognizer?;
-    final PanGestureRecognizer? pan = recognizers[PanGestureRecognizer] as PanGestureRecognizer?;
+  GestureDragUpdateCallback? _getVerticalDragUpdateHandler(
+      Map<Type, GestureRecognizer> recognizers) {
+    final VerticalDragGestureRecognizer? vertical =
+        recognizers[VerticalDragGestureRecognizer]
+            as VerticalDragGestureRecognizer?;
+    final PanGestureRecognizer? pan =
+        recognizers[PanGestureRecognizer] as PanGestureRecognizer?;
 
     final GestureDragUpdateCallback? verticalHandler = vertical == null
         ? null
@@ -410,21 +447,31 @@ class _GestureSemantics extends SingleChildRenderObjectWidget {
 
   @override
   RenderSemanticsGestureHandler createRenderObject(BuildContext context) {
-    final RenderSemanticsGestureHandlerHitTestWithoutSizeLimit renderObject = RenderSemanticsGestureHandlerHitTestWithoutSizeLimit(extraHitTestArea: extraHitTestArea)..behavior = behavior;
+    final RenderSemanticsGestureHandlerHitTestWithoutSizeLimit renderObject =
+        RenderSemanticsGestureHandlerHitTestWithoutSizeLimit(
+            extraHitTestArea: extraHitTestArea)
+          ..behavior = behavior;
     assignSemantics(renderObject);
     return renderObject;
   }
 
   @override
-  void updateRenderObject(BuildContext context, RenderSemanticsGestureHandlerHitTestWithoutSizeLimit renderObject) {
+  void updateRenderObject(BuildContext context,
+      RenderSemanticsGestureHandlerHitTestWithoutSizeLimit renderObject) {
     renderObject.behavior = behavior;
     renderObject.extraHitTestArea = extraHitTestArea;
     assignSemantics(renderObject);
   }
 }
 
-class RenderSemanticsGestureHandlerHitTestWithoutSizeLimit extends RenderSemanticsGestureHandler with RenderBoxHitTestWithoutSizeLimit, RenderProxyBoxWithHitTestBehaviorHitTestWithoutSizeLimit {
-  RenderSemanticsGestureHandlerHitTestWithoutSizeLimit({required EdgeInsets extraHitTestArea}) : _extraHitTestArea = extraHitTestArea;
+class RenderSemanticsGestureHandlerHitTestWithoutSizeLimit
+    extends RenderSemanticsGestureHandler
+    with
+        RenderBoxHitTestWithoutSizeLimit,
+        RenderProxyBoxWithHitTestBehaviorHitTestWithoutSizeLimit {
+  RenderSemanticsGestureHandlerHitTestWithoutSizeLimit(
+      {required EdgeInsets extraHitTestArea})
+      : _extraHitTestArea = extraHitTestArea;
   EdgeInsets _extraHitTestArea;
   @override
   EdgeInsets get extraHitTestArea => _extraHitTestArea;

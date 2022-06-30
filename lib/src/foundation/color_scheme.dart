@@ -72,7 +72,8 @@ class UIColorScheme extends ThemeExtension<UIColorScheme> {
   }
 
   @override
-  ThemeExtension<UIColorScheme> lerp(ThemeExtension<UIColorScheme>? other, double t) {
+  ThemeExtension<UIColorScheme> lerp(
+      ThemeExtension<UIColorScheme>? other, double t) {
     return this;
   }
 }

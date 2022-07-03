@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/components.dart';
-import 'package:meteor_ui_kit/foundation.dart';
 
 class ColorSchemePage extends StatefulWidget {
   const ColorSchemePage({Key? key}) : super(key: key);
@@ -26,28 +25,22 @@ class _ColorSchemePageState extends State<ColorSchemePage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         children: colors.asMap().keys.map((index) {
-          return UIDebounceTap(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              decoration: BoxDecoration(
-                color: colors[index],
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: onBackground, width: 1),
-              ),
-              child: DefaultTextStyle(
-                style: TextStyle(
-                    color:
-                        ThemeData.estimateBrightnessForColor(colors[index]) ==
-                                Brightness.dark
-                            ? Colors.white
-                            : Colors.black),
-                child: Text(titles[index]),
-              ),
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            decoration: BoxDecoration(
+              color: colors[index],
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: onBackground, width: 1),
             ),
-            onTap: () async {
-              print("测试");
-            },
+            child: DefaultTextStyle(
+              style: TextStyle(
+                  color: ThemeData.estimateBrightnessForColor(colors[index]) ==
+                          Brightness.dark
+                      ? Colors.white
+                      : Colors.black),
+              child: Text(titles[index]),
+            ),
           );
         }).toList(),
       ),

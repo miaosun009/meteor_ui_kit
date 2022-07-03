@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meteor_ui_kit/components.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({Key? key}) : super(key: key);
@@ -20,13 +21,15 @@ class _IndexPageState extends State<IndexPage> {
             onPressed: () {
               Navigator.of(context).pushNamed('/themeSetting');
             },
-            child: Text("Theme Setting"),
+            child: const UIH1(
+              "Theme Setting",
+            ),
           ),
           MaterialButton(
             onPressed: () {
               Navigator.of(context).pushNamed('/colorScheme');
             },
-            child: const Text("Color Scheme"),
+            child: const UIH2("Color Scheme"),
           ),
         ],
       ),

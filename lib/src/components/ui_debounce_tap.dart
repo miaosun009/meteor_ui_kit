@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/components.dart';
+import 'package:meteor_ui_kit/src/utils/func.dart';
 
-/// 防抖Tap
-class UIDebounceTap extends StatefulWidget {
+class UIDebounceTap extends StatelessWidget {
   final Widget child;
   final FutureOr Function()? onTap;
   final Duration duration;
@@ -17,42 +17,10 @@ class UIDebounceTap extends StatefulWidget {
   });
 
   @override
-  State<UIDebounceTap> createState() => _UIDebounceTapState();
-}
-
-class _UIDebounceTapState extends State<UIDebounceTap> {
-  Timer? timer;
-  bool lock = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    timer?.cancel();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return UIGestureDetector(
-      onTap: () async {
-        if (lock) return;
-        timer?.cancel();
-        timer = Timer(widget.duration, () async {
-          try {
-            lock = true;
-            await widget.onTap?.call();
-          } catch (_) {
-          } finally {
-            timer?.cancel();
-            lock = false;
-          }
-        });
-      },
-      child: widget.child,
+      onTap: debounceFunc(onTap ?? () => {}, duration: duration),
+      child: child,
     );
   }
 }

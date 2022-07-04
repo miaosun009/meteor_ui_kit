@@ -1,34 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:meteor_ui_kit/components.dart';
-import 'package:meteor_ui_kit/src/foundation/color_scheme.dart';
 
 @immutable
 class UIFontWeightScheme extends ThemeExtension<UIFontWeightScheme> {
   final FontWeight bold;
   final FontWeight medium;
   final FontWeight regular;
+  final FontWeight light;
 
   factory UIFontWeightScheme.normal() {
     return const UIFontWeightScheme(
       bold: FontWeight.bold,
       medium: FontWeight.w600,
       regular: FontWeight.w400,
+      light: FontWeight.w100,
     );
   }
 
-  List<FontWeight> get values => [bold, medium, regular];
-
-  FontWeight? value(UIFontWeight? fontWeight) {
-    if (fontWeight != null) {
-      return values[fontWeight.index];
-    }
-    return null;
-  }
+  List<FontWeight> get values => [bold, medium, regular, light];
 
   const UIFontWeightScheme({
     required this.bold,
     required this.medium,
     required this.regular,
+    required this.light,
   });
 
   @override
@@ -36,11 +30,13 @@ class UIFontWeightScheme extends ThemeExtension<UIFontWeightScheme> {
     FontWeight? bold,
     FontWeight? medium,
     FontWeight? regular,
+    FontWeight? light,
   }) {
     return UIFontWeightScheme(
       bold: bold ?? this.bold,
       medium: medium ?? this.medium,
       regular: regular ?? this.regular,
+      light: light ?? this.light,
     );
   }
 
@@ -49,9 +45,11 @@ class UIFontWeightScheme extends ThemeExtension<UIFontWeightScheme> {
       ThemeExtension<UIFontWeightScheme>? other, double t) {
     return this;
   }
+}
 
-  @override
-  noSuchMethod(Invocation invocation) {
-    print("5555");
-  }
+enum UIFontWeight {
+  bold,
+  medium,
+  regular,
+  light,
 }

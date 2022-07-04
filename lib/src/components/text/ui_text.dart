@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/foundation.dart';
-import 'package:meteor_ui_kit/src/components/typography/ut_font_size_scheme.dart';
-import 'package:meteor_ui_kit/src/components/typography/ut_font_weight_scheme.dart';
+import 'package:meteor_ui_kit/src/components/text/ui_text_color_scheme.dart';
+import 'package:meteor_ui_kit/src/components/text/ut_font_size_scheme.dart';
+import 'package:meteor_ui_kit/src/components/text/ut_font_weight_scheme.dart';
 import 'package:meteor_ui_kit/src/foundation/color_scheme.dart';
 
-class UIText extends StatelessWidget {
+class UITypography extends StatelessWidget {
   final String data;
   final Color? color;
   final double? fontSize;
   final FontWeight? fontWeight;
   final TextStyle? style;
 
-  const UIText(
+  const UITypography(
     this.data, {
     this.color,
     this.fontSize,
@@ -38,19 +39,19 @@ class UIText extends StatelessWidget {
   }
 }
 
-class UITypography extends StatelessWidget {
+class UIText extends StatelessWidget {
   final String data;
   final UIFontColor? fontColor;
   final UIFontSize? fontSize;
-  final TextStyle? textStyle;
   final UIFontWeight? fontWeight;
+  final TextStyle? textStyle;
 
-  const UITypography(
+  const UIText(
     this.data, {
     this.fontColor,
     this.fontSize,
-    this.textStyle,
     this.fontWeight,
+    this.textStyle,
     super.key,
   });
 
@@ -67,7 +68,7 @@ class UITypography extends StatelessWidget {
         fontWeight: weight,
       ).merge(this.textStyle);
     }
-    return UIText(
+    return UITypography(
       data,
       color: color,
       fontSize: size,
@@ -78,83 +79,50 @@ class UITypography extends StatelessWidget {
 
   static Color? getFontColor(BuildContext context, UIFontColor? fontColor) {
     final colorSchemers = UIKitTheme.extension<UIColorScheme>(context)!;
-    final map = {
-      UIFontColor.primary: colorSchemers.primary,
-      UIFontColor.warning: colorSchemers.warning,
-      UIFontColor.error: colorSchemers.error,
-      UIFontColor.link: colorSchemers.link,
-    };
-
-    if (map.containsKey(fontColor)) return map[fontColor];
+    if (fontColor != null) {
+      colorSchemers.textColorScheme.values[fontColor.index];
+    }
     return null;
   }
 
   static double? getFontSize(BuildContext context, UIFontSize? fontSize) {
-    final fontSizeScheme = UIKitTheme.extension<UIFontSizeScheme>(context)!;
-    final map = {
-      UIFontSize.h1: fontSizeScheme.h1,
-      UIFontSize.h2: fontSizeScheme.h2,
-      UIFontSize.h3: fontSizeScheme.h3,
-      UIFontSize.h4: fontSizeScheme.h4,
-    };
-    if (map.containsKey(fontSize)) return map[fontSize];
-    return null;
+    final scheme = UIKitTheme.extension<UIFontSizeScheme>(context)!;
+    if (fontSize != null) {
+      return scheme.values[fontSize.index];
+    } else {
+      return null;
+    }
   }
 
   static FontWeight? getFontWeight(
     BuildContext context,
     UIFontWeight? fontWeight,
   ) {
-    final fontWeightScheme = UIKitTheme.extension<UIFontWeightScheme>(context)!;
-    return fontWeightScheme.value(fontWeight);
+    final scheme = UIKitTheme.extension<UIFontWeightScheme>(context)!;
+    if (fontWeight != null) {
+      return scheme.values[fontWeight.index];
+    } else {
+      return null;
+    }
   }
 }
 
-class UIH1 extends UITypography {
+class UIH1 extends UIText {
   const UIH1(
     super.data, {
     super.fontColor,
     super.textStyle,
     super.fontWeight = UIFontWeight.bold,
     super.key,
-  }) : super(fontSize: UIFontSize.h1);
+  }) : super(fontSize: UIFontSize.headline1);
 }
 
-class UIH2 extends UITypography {
+class UIH2 extends UIText {
   const UIH2(
     super.data, {
     super.fontColor,
     super.textStyle,
     super.fontWeight = UIFontWeight.medium,
     super.key,
-  }) : super(fontSize: UIFontSize.h2);
-}
-
-enum UIFontSize {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  body,
-  span,
-}
-
-enum UIFontColor {
-  primary,
-  success,
-  warning,
-  error,
-  link,
-}
-
-enum UIFontWeight {
-  bold("bold"),
-  medium("medium"),
-  regular("regular");
-
-  final String value;
-
-  const UIFontWeight(this.value);
+  }) : super(fontSize: UIFontSize.headline2);
 }

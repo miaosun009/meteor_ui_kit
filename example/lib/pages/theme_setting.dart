@@ -13,15 +13,17 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<UIColorScheme>();
+    final a=Theme.of(context).colorScheme;
+
     return UIKitListenableBuilder(builder: (_, __) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text("Theme Setting"),
+          title: const UIText("Theme Setting"),
         ),
         body: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            const Text("Theme mode"),
+            const UIText.title("Theme mode"),
             const UISizedBox(height: 12),
             UIRow(
               children: [
@@ -33,7 +35,7 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
                     UIKit().themeSetting =
                         UIKit().themeSetting.copyWith(mode: ThemeMode.dark);
                   },
-                  child: const Text("Dark"),
+                  child: const UIText("Dark"),
                 ),
                 MaterialButton(
                   color: UIKit().themeSetting.mode == ThemeMode.light
@@ -43,7 +45,7 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
                     UIKit().themeSetting =
                         UIKit().themeSetting.copyWith(mode: ThemeMode.light);
                   },
-                  child: const Text("Light"),
+                  child: const UIText("Light"),
                 ),
                 MaterialButton(
                   color: UIKit().themeSetting.mode == ThemeMode.system
@@ -53,12 +55,12 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
                     UIKit().themeSetting =
                         UIKit().themeSetting.copyWith(mode: ThemeMode.system);
                   },
-                  child: const Text("System"),
+                  child: const UIText("System"),
                 )
               ],
             ),
             const UISizedBox(height: 42),
-            const Text("Font family"),
+            const UIText.title("Font family"),
             const UISizedBox(height: 12),
             UIRow(
               children: [
@@ -70,7 +72,7 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
                     UIKit().themeSetting =
                         UIKit().themeSetting.copyWith(fontFamily: '');
                   },
-                  child: const Text("Default"),
+                  child: const UIText("Default"),
                 ),
                 MaterialButton(
                   color:
@@ -82,7 +84,7 @@ class _ThemeSettingPageState extends State<ThemeSettingPage> {
                         .themeSetting
                         .copyWith(fontFamily: 'JetBrainsMono');
                   },
-                  child: const Text("JetBrainsMono"),
+                  child: const UIText("JetBrainsMono"),
                 ),
               ],
             )

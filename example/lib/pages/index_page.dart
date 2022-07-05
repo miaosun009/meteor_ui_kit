@@ -13,7 +13,7 @@ class _IndexPageState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Meteor UIKit"),
+        title: const UIText("Meteor UIKit"),
       ),
       body: ListView(
         children: [
@@ -21,7 +21,7 @@ class _IndexPageState extends State<IndexPage> {
             onPressed: () {
               Navigator.of(context).pushNamed('/themeSetting');
             },
-            child: const UIH1(
+            child: const UIText(
               "Theme Setting",
             ),
           ),
@@ -29,7 +29,13 @@ class _IndexPageState extends State<IndexPage> {
             onPressed: () {
               Navigator.of(context).pushNamed('/colorScheme');
             },
-            child: const UIH2("Color Scheme"),
+            child: const UIText("Color Scheme"),
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/textPage');
+            },
+            child: const UIText("UIText"),
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:example/pages/color_scheme_page.dart';
 import 'package:example/pages/index_page.dart';
+import 'package:example/pages/text_page.dart';
 import 'package:example/pages/theme_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/foundation.dart';
@@ -36,5 +37,6 @@ class MyApp extends StatelessWidget {
         '/': (_) => const IndexPage(),
         '/colorScheme': (_) => const ColorSchemePage(),
         '/themeSetting': (_) => const ThemeSettingPage(),
+        '/textPage': (_) => const TextPage(),
       };
 }

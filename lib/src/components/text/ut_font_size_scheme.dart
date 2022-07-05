@@ -14,7 +14,7 @@ class UIFontSizeScheme extends ThemeExtension<UIFontSizeScheme> {
   final double label;
   final double micro;
 
-  factory UIFontSizeScheme.normal() {
+  factory UIFontSizeScheme.fromDefault() {
     return const UIFontSizeScheme(
       headline1: 32,
       headline2: 28,
@@ -92,18 +92,4 @@ class UIFontSizeScheme extends ThemeExtension<UIFontSizeScheme> {
       ThemeExtension<UIFontSizeScheme>? other, double t) {
     return this;
   }
-}
-
-enum UIFontSize {
-  headline1,
-  headline2,
-  headline3,
-  headline4,
-  headline5,
-  headline6,
-  title,
-  subtitle,
-  body,
-  label,
-  micro
 }

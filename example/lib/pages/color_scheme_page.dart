@@ -20,7 +20,7 @@ class _ColorSchemePageState extends State<ColorSchemePage> {
     final onBackground = backgroundIsDark ? Colors.white : Colors.black;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("UIColorScheme"),
+        title: const UIText("UIColorScheme"),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -52,7 +52,6 @@ class _ColorSchemePageState extends State<ColorSchemePage> {
     return {
       "Background": colors.background,
       "Primary": colors.primary,
-      "Secondary": colors.secondary,
       "Success": colors.success,
       "Warning": colors.warning,
       "Error": colors.error,

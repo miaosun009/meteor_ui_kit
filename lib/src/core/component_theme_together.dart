@@ -5,12 +5,12 @@ import 'package:meteor_ui_kit/src/foundation/color_scheme.dart';
 
 List<ThemeExtension> get componentThemeTogetherDark => [
       UIColorScheme.dark(),
-      UIFontSizeScheme.normal(),
-      UIFontWeightScheme.normal(),
+      UIFontSizeScheme.fromDefault(),
+      UIFontWeightScheme.fromDefault(),
     ];
 
 List<ThemeExtension> get componentThemeTogetherLight => [
       UIColorScheme.light(),
-      UIFontSizeScheme.normal(),
-      UIFontWeightScheme.normal(),
+      UIFontSizeScheme.fromDefault(),
+      UIFontWeightScheme.fromDefault(),
     ];

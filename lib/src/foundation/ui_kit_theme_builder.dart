@@ -37,7 +37,7 @@ class UIKitThemeBuilder {
     themeData = themeData.copyWith(
       colorScheme: ColorScheme(
         primary: colors.primary,
-        secondary: colors.secondary,
+        secondary: colors.primary,
         surface: colors.primary,
         background: colors.background,
         error: Colors.red,

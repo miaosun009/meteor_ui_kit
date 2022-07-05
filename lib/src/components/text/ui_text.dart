@@ -1,9 +1,44 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:meteor_ui_kit/foundation.dart';
-import 'package:meteor_ui_kit/src/components/text/ui_text_color_scheme.dart';
 import 'package:meteor_ui_kit/src/components/text/ut_font_size_scheme.dart';
 import 'package:meteor_ui_kit/src/components/text/ut_font_weight_scheme.dart';
 import 'package:meteor_ui_kit/src/foundation/color_scheme.dart';
+
+enum UIFontColor {
+  primary,
+  success,
+  warning,
+  error,
+  link,
+  headline,
+  title,
+  regular,
+  secondary,
+  tertiary,
+  inverse,
+}
+
+enum UIFontWeight {
+  bold,
+  medium,
+  regular,
+  light,
+}
+
+enum UIFontSize {
+  headline1,
+  headline2,
+  headline3,
+  headline4,
+  headline5,
+  headline6,
+  title,
+  subtitle,
+  body,
+  label,
+  micro
+}
 
 class UITypography extends StatelessWidget {
   final String data;
@@ -11,6 +46,16 @@ class UITypography extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final TextStyle? style;
+  final double? minFontSize;
+  final int? maxLines;
+  final TextAlign? textAlign;
+  final TextDirection? textDecoration;
+  final Locale? locale;
+  final TextOverflow? overflow;
+  final bool? softWrap;
+  final String? semanticsLabel;
+  final double? textScaleFactor;
+  final StrutStyle? strutStyle;
 
   const UITypography(
     this.data, {
@@ -18,6 +63,16 @@ class UITypography extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.style,
+    this.minFontSize,
+    this.maxLines,
+    this.textAlign,
+    this.textDecoration,
+    this.locale,
+    this.overflow,
+    this.softWrap,
+    this.semanticsLabel,
+    this.textScaleFactor,
+    this.strutStyle,
     super.key,
   });
 
@@ -31,27 +86,57 @@ class UITypography extends StatelessWidget {
     if (style != null) {
       textStyle = textStyle.merge(style);
     }
-
-    return Text(
+    final merged = DefaultTextStyle.of(context).style.merge(textStyle);
+    return AutoSizeText(
       data,
-      style: DefaultTextStyle.of(context).style.merge(textStyle),
+      minFontSize: minFontSize ?? merged.fontSize ?? 12,
+      style: merged,
+      maxLines: maxLines,
+      textAlign: textAlign,
+      textDirection: textDecoration,
+      locale: locale,
+      overflow: overflow,
+      softWrap: softWrap,
+      strutStyle: strutStyle,
+      semanticsLabel: semanticsLabel,
+      textScaleFactor: textScaleFactor,
     );
   }
 }
 
-class UIText extends StatelessWidget {
+class UITextBasic extends StatelessWidget {
   final String data;
   final UIFontColor? fontColor;
   final UIFontSize? fontSize;
   final UIFontWeight? fontWeight;
   final TextStyle? textStyle;
+  final double? minFontSize;
+  final int? maxLines;
+  final TextAlign? textAlign;
+  final TextDirection? textDecoration;
+  final Locale? locale;
+  final TextOverflow? overflow;
+  final bool? softWrap;
+  final String? semanticsLabel;
+  final double? textScaleFactor;
+  final StrutStyle? strutStyle;
 
-  const UIText(
+  const UITextBasic(
     this.data, {
     this.fontColor,
     this.fontSize,
     this.fontWeight,
     this.textStyle,
+    this.minFontSize,
+    this.maxLines,
+    this.textAlign,
+    this.textDecoration,
+    this.locale,
+    this.overflow,
+    this.softWrap,
+    this.semanticsLabel,
+    this.textScaleFactor,
+    this.strutStyle,
     super.key,
   });
 
@@ -74,15 +159,39 @@ class UIText extends StatelessWidget {
       fontSize: size,
       fontWeight: weight,
       style: textStyle,
+      minFontSize: minFontSize,
+      maxLines: maxLines,
+      textAlign: textAlign,
+      textDecoration: textDecoration,
+      locale: locale,
+      overflow: overflow,
+      softWrap: softWrap,
+      semanticsLabel: semanticsLabel,
+      textScaleFactor: textScaleFactor,
+      strutStyle: strutStyle,
     );
   }
 
   static Color? getFontColor(BuildContext context, UIFontColor? fontColor) {
-    final colorSchemers = UIKitTheme.extension<UIColorScheme>(context)!;
-    if (fontColor != null) {
-      colorSchemers.textColorScheme.values[fontColor.index];
+    final colorScheme = UIKitTheme.extension<UIColorScheme>(context);
+    if (fontColor != null && colorScheme != null) {
+      final colors = {
+        UIFontColor.primary: colorScheme.primary,
+        UIFontColor.success: colorScheme.success,
+        UIFontColor.warning: colorScheme.warning,
+        UIFontColor.error: colorScheme.error,
+        UIFontColor.link: colorScheme.link,
+        UIFontColor.headline: colorScheme.headlineText,
+        UIFontColor.title: colorScheme.titleText,
+        UIFontColor.regular: colorScheme.regularText,
+        UIFontColor.secondary: colorScheme.secondaryText,
+        UIFontColor.tertiary: colorScheme.tertiaryText,
+        UIFontColor.inverse: colorScheme.inverseText,
+      };
+      return colors[fontColor];
+    } else {
+      return null;
     }
-    return null;
   }
 
   static double? getFontSize(BuildContext context, UIFontSize? fontSize) {
@@ -107,22 +216,220 @@ class UIText extends StatelessWidget {
   }
 }
 
-class UIH1 extends UIText {
-  const UIH1(
+class UIText extends UITextBasic {
+  const UIText(
     super.data, {
     super.fontColor,
+    super.fontWeight,
     super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  });
+
+  const UIText.h1(
+    super.data, {
+    super.fontColor,
     super.fontWeight = UIFontWeight.bold,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
     super.key,
   }) : super(fontSize: UIFontSize.headline1);
-}
 
-class UIH2 extends UIText {
-  const UIH2(
+  const UIText.h2(
     super.data, {
     super.fontColor,
+    super.fontWeight = UIFontWeight.bold,
     super.textStyle,
-    super.fontWeight = UIFontWeight.medium,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
     super.key,
   }) : super(fontSize: UIFontSize.headline2);
+
+  const UIText.h3(
+    super.data, {
+    super.fontColor,
+    super.fontWeight = UIFontWeight.bold,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  }) : super(fontSize: UIFontSize.headline3);
+
+  const UIText.h4(
+    super.data, {
+    super.fontColor,
+    super.fontWeight = UIFontWeight.bold,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  }) : super(fontSize: UIFontSize.headline4);
+
+  const UIText.h5(
+    super.data, {
+    super.fontColor,
+    super.fontWeight = UIFontWeight.bold,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  }) : super(fontSize: UIFontSize.headline5);
+
+  const UIText.h6(
+    super.data, {
+    super.fontColor,
+    super.fontWeight = UIFontWeight.bold,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  }) : super(fontSize: UIFontSize.headline6);
+
+  const UIText.title(
+    super.data, {
+    super.fontColor,
+    super.fontWeight = UIFontWeight.medium,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  }) : super(fontSize: UIFontSize.title);
+
+  const UIText.subtitle(
+    super.data, {
+    super.fontColor,
+    super.fontWeight = UIFontWeight.medium,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  }) : super(fontSize: UIFontSize.subtitle);
+
+  const UIText.body(
+    super.data, {
+    super.fontColor,
+    super.fontWeight,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  }) : super(fontSize: UIFontSize.body);
+
+  const UIText.label(
+    super.data, {
+    super.fontColor,
+    super.fontWeight,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  }) : super(fontSize: UIFontSize.label);
+
+  const UIText.micro(
+    super.data, {
+    super.fontColor,
+    super.fontWeight,
+    super.textStyle,
+    super.minFontSize,
+    super.maxLines,
+    super.textAlign,
+    super.textDecoration,
+    super.locale,
+    super.overflow,
+    super.softWrap,
+    super.semanticsLabel,
+    super.textScaleFactor,
+    super.strutStyle,
+    super.key,
+  }) : super(fontSize: UIFontSize.micro);
 }

@@ -7,7 +7,7 @@ class UIFontWeightScheme extends ThemeExtension<UIFontWeightScheme> {
   final FontWeight regular;
   final FontWeight light;
 
-  factory UIFontWeightScheme.normal() {
+  factory UIFontWeightScheme.fromDefault() {
     return const UIFontWeightScheme(
       bold: FontWeight.bold,
       medium: FontWeight.w600,
@@ -45,11 +45,4 @@ class UIFontWeightScheme extends ThemeExtension<UIFontWeightScheme> {
       ThemeExtension<UIFontWeightScheme>? other, double t) {
     return this;
   }
-}
-
-enum UIFontWeight {
-  bold,
-  medium,
-  regular,
-  light,
 }
